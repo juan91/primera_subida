@@ -1,1 +1,6 @@
-#PRIMER PROYECTO
+#ACTIVIDAD 2
+
+1. npm install
+2. node index.js
+
+Nota: jquery y bootstrap están agregados con la cdn (requiere internet)
