@@ -1,0 +1,35 @@
+{{>header}}
+<div class="container">
+{{# if curso }}
+    <div class="row m-5">
+        {{# each curso }}
+            {{# if this.estado }}
+                <div class="card-deck col-6 animated fadeIn p-2">
+                    <div class="card">
+                        <div class="card-header">  {{# if this.estado }}
+                           <b><span class="badge badge-success">Curso Disponible</span></b> {{ else }}
+                            <span class="badge badge-danger">Curso ya no esta disponible</span> {{/if}}</div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ this.nombre }} - $ {{ this.valor }}</h5>
+                            <p class="card-text">{{ this.descripcion}}</p>
+                            <a href="/detalle_curso/{{this.id}}" class="btn btn-primary btn-block">Ver detalles...</a>
+                        </div>
+
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+
+        {{/each}}
+    </div>
+    {{ else }}
+    <div class="alert alert-danger col-12 text-center"><H3>NO HAY INSCRITOS</H3></div>
+ {{/if}}
+
+</div>
+
+{{>footer}}
+
+

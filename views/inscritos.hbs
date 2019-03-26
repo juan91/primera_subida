@@ -1,0 +1,93 @@
+{{>header}}
+
+<div class="row m-5 animated fadeIn">
+    {{# if usercursos}}
+    <div class="row">
+        {{# each usercursos }}
+            <div class="col-sm-6 p-1">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center"> Curso: {{this.nombre}}</h5>
+                        {{# if this.users.length }}
+                            <button class="btn btn-primary btn-block" onclick="mostrarregistros({{this.id}})"
+                                    id="mostrar_{{this.id}}">Mostrar usuarios
+                                registrados  <span class="badge badge-light">{{this.users.length}}</span>
+                            </button>
+                            <button class="btn btn-danger btn-block" style="display: none" onclick="ocultarregistros({{this.id}})"
+                                    id="ocultar_{{this.id}}">
+                                Ocultar usuarios registrados <span class="badge badge-light">{{this.users.length}}</span>
+                            </button>
+                            {{else}}
+                            <button class="btn btn-secondary btn-block disabled"
+                                    id="mostrar_{{this.id}}">No hay usuarios registrados
+                            </button>
+                        {{/if}}
+
+                        <div style="display: none" class="tabla_{{this.id}}">
+                            {{# if this.users}}
+                                <table class="m-2 table">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Cedula</th>
+                                        <th>email</th>
+                                        <th>Tel</th>
+                                        <th>::</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{# each this.users }}
+                                        <tr>
+                                            <td>{{this.nombre}}</td>
+                                            <td>{{this.cc}}</td>
+                                            <td>{{this.email}}</td>
+                                            <td>{{this.tel}}</td>
+                                            <td>
+                                                <form action="/eliminar_usuario" method="post" style="display: inline">
+                                                    <input type="hidden" name="cc" value="{{this.cc}}">
+                                                    <button type="submit" class="btn btn-secondary btn-sm">Eliminar</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+                            {{ else }}
+                                <div class="aler alert-info m-2 p-2 text-center">No hay usuario registrados para este curso</div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    {{else}}
+        <div class="alert alert-danger col-12 text-center"><H3>NO HAY INSCRITOS</H3></div>
+    {{/if}}
+    </div>
+
+</div>
+
+
+{{>footer}}
+
+<script>
+
+    function mostrarregistros(id) {
+        $(".tabla_" + id).css("display", "block");
+        $(".tabla_" + id).addClass("animated fadeIn");
+        $("#ocultar_" + id).css("display", "block");
+        $("#mostrar_" + id).css("display", "none");
+        cursoa = id;
+    }
+
+    function ocultarregistros(id) {
+        $(".tabla_" + id).css("display", "none");
+        $(".tabla_" + id).addClass("animated fadeIn");
+        $("#ocultar_" + id).css("display", "none");
+        $("#mostrar_" + id).css("display", "block");
+    }
+
+
+
+</script>
+

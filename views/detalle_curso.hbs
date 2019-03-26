@@ -1,0 +1,83 @@
+{{>header}}
+<div class="container">
+    {{# if detallecurso }}
+    <div class="card-deck m-4 animated fadeIn">
+        <div class="card">
+        <div class="card-header"> Estado: {{# if detallecurso.estado }} <b><span class="badge badge-success">Disponible</span></b> {{ else }}<span class="badge badge-danger">Cerrado</span> {{/if}}</div>
+            <div class="row">
+
+           <div class="col-6">
+               <div class="card-body">
+                   <h5 class="card-title"><b>Curso:</b> {{ detallecurso.nombre }}</h5>
+                   <p class="card-text"><b>Costo:</b> $ {{ detallecurso.valor }}</p>
+                   <p class="card-text"><b>Descripción:</b> {{ detallecurso.descripcion}}</p>
+                   <p class="card-text"><b>Modalidad:</b> {{ detallecurso.modalidad}}</p>
+                   <p class="card-text"><b>Horas:</b> {{ detallecurso.intesidad}}</p>
+
+                   {{# if detallecurso.estado }} <b>
+                       <button onclick="registro({{ detallecurso.id }})" class="btn btn-success">Inscribirse al curso</button>
+                   </b> {{ else }}
+                       <a href="/detalle_curso/{{detallecurso.id}}" class="btn btn-danger disabled">Este curso fue cerrado</a>
+                   {{/if}}
+                   <a href="/oferta"  class="btn btn-secondary">Volver</a>
+               </div>
+           </div>
+            <div class="col-6 pb-3">
+                <form style="display: none;" id="formcurso" method="post" action="/registrar_usuario">
+                    <input type="hidden" id="idcurso" name="idcurso">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Documento de indentidad:</label>
+                            <input type="text" class="form-control" id="inputEmail4" name="cc" placeholder="documento indentidad" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Nombre:</label>
+                            <input type="text" class="form-control" id="inputPassword4" name="nombre" placeholder="nombre" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress">Correo:</label>
+                        <input type="email" class="form-control" id="inputAddress" name="email" placeholder="ejemplo@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress2">Telefono:</label>
+                        <input type="text" class="form-control" id="inputAddress2" name="telefono" placeholder="telefono" required>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-danger" onclick="cancelar()">Cancelar</button>
+
+                </form>
+            </div>
+
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+    {{ else }}
+        <div class="alert alert-danger m-5" role="alert">
+           Curso no existe. ir al listado de <a href="/" class="alert-link">Cursos</a>.
+        </div>
+    {{/if}}
+</div>
+
+{{>footer}}
+
+<script>
+    function registro(id) {
+        $("#formcurso").css("display","block");
+        $("#formcurso").addClass("animated fadeIn");
+        console.log(id);
+        $("#idcurso").val(id);
+    }
+
+    function cancelar() {
+        $("#formcurso").css("display","none");
+        $("#formcurso").removeClass("animated fadeIn");
+        $("#idcurso").val("");
+    }
+</script>
+

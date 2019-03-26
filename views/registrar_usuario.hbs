@@ -1,0 +1,31 @@
+{{>header}}
+<div class="container">
+    <div class="card-deck m-4">
+        <div class="card">
+
+            <div class="card-header"> Estado: {{# if detallecurso.estado }} <b><span class="badge badge-success">Disponible</span></b> {{ else }}<span class="badge badge-danger">Cerrado</span> {{/if}}</div>
+            <div class="card-body">
+                <h5 class="card-title">Curso: {{ detallecurso.nombre }}</h5>
+                <p class="card-text">Costo: $ {{ detallecurso.valor }}</p>
+                <p class="card-text">Descripción: {{ detallecurso.descripcion}}</p>
+                <p class="card-text">Modalidad: {{ detallecurso.modalidad}}</p>
+                <p class="card-text">Horas: {{ detallecurso.intesidad}}</p>
+
+                {{# if detallecurso.estado }} <b>
+                     <a href="/detalle_curso/{{detallecurso.id}}" class="btn btn-success">Inscribirse al curso</a>
+              </b> {{ else }}
+                     <a href="/detalle_curso/{{detallecurso.id}}" class="btn btn-danger disabled">Este curso fue cerrado</a>
+                   {{/if}}
+
+            </div>
+
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{>footer}}
+
+
